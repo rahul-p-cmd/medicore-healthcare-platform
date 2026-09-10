@@ -19,6 +19,7 @@ public class PatientService {
 		this.patientRepository=patientRepository;
 		
 	}
+	// Git workflow practice
 	public Patient savePatient(Patient patient)
 	{
 		return patientRepository.save(patient);
