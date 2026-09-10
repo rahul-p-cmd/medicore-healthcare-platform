@@ -20,6 +20,7 @@ public class PatientService {
 		
 	}
 	// Git workflow practice
+	// Git GUI workflow practice
 	public Patient savePatient(Patient patient)
 	{
 		return patientRepository.save(patient);
