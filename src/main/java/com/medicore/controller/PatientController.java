@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.medicore.entity.Patient;
 import com.medicore.service.PatientService;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class PatientController {
 	
@@ -23,7 +25,7 @@ public class PatientController {
 		this.patientService=patientService;
 	}
 	@PostMapping("/patients")
-	public Patient savePatient(@RequestBody Patient patient)
+	public Patient savePatient(@Valid @RequestBody Patient patient)
 	{
 		return patientService.savePatient(patient);
 		

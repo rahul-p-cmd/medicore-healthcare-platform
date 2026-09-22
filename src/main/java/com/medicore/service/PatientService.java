@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.medicore.entity.Patient;
+import com.medicore.entity.PaymentStatus;
 import com.medicore.repository.PatientRepository;
 
 @Service
@@ -21,8 +22,40 @@ public class PatientService {
 	}
 	// Git workflow practice
 	// Git GUI workflow practice
+	/*public Patient savePatient(Patient patient)
+	{
+		return patientRepository.save(patient);
+	}*/
+	
+	
 	public Patient savePatient(Patient patient)
 	{
+		//Insurance YES hai, lekin plan nahi diya
+		
+		if(Boolean.TRUE.equals(patient.getInsuranceRequired())&&patient.getInsurancePlan()==null)
+			
+			throw new IllegalArgumentException("insurance plan is required");
+		// 2. Insurance NO hai, lekin plan diya hai invalid case
+		
+		if (Boolean.FALSE.equals(patient.getInsuranceRequired())
+		        && patient.getInsurancePlan() != null) {
+
+		    throw new IllegalArgumentException(
+		            "Insurance plan should not be selected when insurance is not required");
+		}
+		// 3. Insurance YES hai
+		
+		if(Boolean.TRUE.equals(patient.getInsuranceRequired()))
+		{
+			patient.setPaymentStatus(PaymentStatus.PENDING);
+		}
+		// 4. Insurance NO hai.valid case
+		if (Boolean.FALSE.equals(patient.getInsuranceRequired())) {
+		    patient.setInsurancePlan(null);
+		    patient.setPaymentStatus(null);
+		}
+		
+		
 		return patientRepository.save(patient);
 	}
 
